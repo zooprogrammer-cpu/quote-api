@@ -41,3 +41,12 @@ app.get('/api/quotes', (req, res, next) => {
         res.send({ quotes: quotes });
     }
 });
+
+// post quote
+app.post('/api/quotes', (req, res, next) =>{
+    const newQuote = req.query; 
+    console.log('newQuote::', newQuote);
+    quotes.push(newQuote);
+    console.log(quotes);
+
+});
