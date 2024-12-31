@@ -17,3 +17,28 @@ app.get('/api/quotes/random', (req, res, next) =>{
     const randomQuote = getRandomElement(quotes);
     res.send({quote: randomQuote});
 })
+
+// get all quotes
+// app.get('/api/quotes', (req, res, next) => {
+//     res.send({quotes: quotes});
+// })
+
+// get all quotes from a person
+app.get('/api/quotes', (req, res, next) =>{
+
+    if (req.query.person) {
+        const quotePerson = req.query.person;
+
+        const personQuotes = quotes.filter(quote => quote.person === quotePerson);
+    
+        if (personQuotes.length > 0) {
+            res.send({quotes: personQuotes});
+        } else {
+            res.status(404).send();
+        }
+    }
+    else {  // if no query params , send all quotes
+        res.send({quotes: quotes});
+}
+
+})
