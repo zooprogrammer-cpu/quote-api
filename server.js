@@ -24,21 +24,20 @@ app.get('/api/quotes/random', (req, res, next) =>{
 // })
 
 // get all quotes from a person
-app.get('/api/quotes', (req, res, next) =>{
-
+app.get('/api/quotes', (req, res, next) => {
     if (req.query.person) {
         const quotePerson = req.query.person;
 
         const personQuotes = quotes.filter(quote => quote.person === quotePerson);
-    
-        if (personQuotes.length > 0) {
-            res.send({quotes: personQuotes});
-        } else {
-            res.status(404).send();
-        }
-    }
-    else {  // if no query params , send all quotes
-        res.send({quotes: quotes});
-}
 
-})
+        if (personQuotes.length > 0) { // If there are some quotes, send the quotes
+            res.send({ quotes: personQuotes });
+        } else {
+            // res.status(404).send({ error: 'No quotes found for this person' });
+            res.send({quotes: null});
+        }
+        
+    } else {  // if no query params, send all quotes
+        res.send({ quotes: quotes });
+    }
+});
