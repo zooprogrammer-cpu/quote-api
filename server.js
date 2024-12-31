@@ -44,9 +44,18 @@ app.get('/api/quotes', (req, res, next) => {
 
 // post quote
 app.post('/api/quotes', (req, res, next) =>{
-    const newQuote = req.query; 
-    console.log('newQuote::', newQuote);
-    quotes.push(newQuote);
-    console.log(quotes);
+    if (req.query.quote && req.query.person) {
+        const newQuote = req.query; 
+        console.log('newQuote::', newQuote);
+        quotes.push(newQuote);
+        console.log(quotes);
+        res.send({quote: {
+            quote: req.query.quote,
+            person: req.query.person
+        }})
+    } else {
+        res.status(400).send();
+    }
+
 
 });
